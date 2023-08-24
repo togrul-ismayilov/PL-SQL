@@ -1,4 +1,4 @@
-CREATE OR REPLACE PROCEDURE UYUMSOFT.approve_po (
+CREATE OR REPLACE PROCEDURE approve_po (
     P_approval_transactions_id   IN GNLT_APPROVAL_TRANSACTION.APPROVAL_TRANSACTIONS_ID%TYPE,
     P_approval_role_m_id         IN GNLT_APPROVAL_TRANSACTION.APPROVAL_ROLE_M_ID%TYPE,
     P_ROUTE_NUMBER               IN GNLT_APPROVAL_TRANSACTION.ROUTE_NUMBER%TYPE)
@@ -35,9 +35,7 @@ BEGIN
           FROM GNLT_APPROVAL_TRANSACTION
          WHERE     approval_transactions_id = P_approval_transactions_id
                AND approval_role_m_id = P_approval_role_m_id
-               AND APPROVAL_STATUS = 3
-               AND APPROVAL_FORMS_ID = 87
-               AND CO_ID = 2374;
+                ;
 
 
 
@@ -124,7 +122,7 @@ BEGIN
                 14,
                 V_IS_PROCESSED);
         
-        -- Update order status as "Onay Yolunda"
+        -- Update order status as "On Approval Route"
         UPDATE PSMT_ORDER_D
             SET REQUEST_STATUS = 2     
             WHERE order_m_id = v_source_m_id;
@@ -134,7 +132,7 @@ BEGIN
             WHERE order_m_id = v_source_m_id;
     ELSE
     
-        -- Update order status as "Onaylandi"
+        -- Update order status as "Approved"
         UPDATE PSMT_ORDER_D
            SET REQUEST_STATUS = 4       
          WHERE order_m_id = v_source_m_id;
